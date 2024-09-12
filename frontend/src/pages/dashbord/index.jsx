@@ -1,37 +1,43 @@
-import React from "react";
+// import React from "react";
 import { useUser } from "@clerk/clerk-react";
-import { useFinancialRecords } from "../../contexts/financial.contexts";
+import { useFinancialRecord } from "../../contexts/financial.context";
 import AddRecordForm from "./AddRecordForm";
-import { FinancialRecordTable } from "./FinancialRecordTable";
-import { log } from "console";
+import FinancialRecordTable from "./FinancialRecordTable";
 
-const Dashbard = () => {
+const Dashboard = () => {
   const { user } = useUser();
-  console.log();
+  const { records } = useFinancialRecord() || { records: [] }; // ให้ค่าเริ่มต้นเป็น array ว่างๆ
+
+  // คำนวณยอดรวมรายเดือน
+  const totalMonthly = records
+    .reduce((total, record) => {
+      const recordDate = new Date(record.date);
+      const currentMonth = new Date().getMonth();
+      const currentYear = new Date().getFullYear();
+
+      if (
+        recordDate.getMonth() === currentMonth &&
+        recordDate.getFullYear() === currentYear
+      ) {
+        return total + parseFloat(record.amount);
+      }
+
+      return total;
+    }, 0)
+    .toFixed(2);
+
   return (
-    <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 text-center">
-      <div className="title bg-base-100 shadow-xl p-8 m-8 rounded-lg w-6/12 mx-auto">
-        <div className="avatar online p-4">
-          <div className="w-24 rounded-full border-4 border-green-200">
-            <img src={user?.imageUrl} alt="User Profile" />
-          </div>
-        </div>
-        <div className="text-4xl font-mono">
-          Welcome : {user?.firstName}! <br />
-          <span className="text-green-500 text-2xl">Here are you finance</span>
-        </div>
+    <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
+      <div className="text-center text-3xl md:text-4xl md:leading-snug font-bold my-2">
+        Welcome {user?.firstName}! Here are your finances:
       </div>
       <AddRecordForm />
-      <div className="stats shadow-xl p-2 m-8">
-        <div className="stat">
-          <div className="stat-title">Total Monthly</div>
-          <div className="stat-value text-green-500">{totalMonthly}฿</div>
-          <div className="stat-desc">Total money in your wallet</div>
-        </div>
+      <div className="text-center text-xl my-4">
+        Total Monthly: {totalMonthly}฿
       </div>
-      <FinancialRecordTable />
+      <FinancialRecordTable records={records} />
     </div>
   );
 };
 
-export default Dashbard;
+export default Dashboard;
