@@ -1,3 +1,4 @@
+
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
@@ -6,11 +7,11 @@ import { useState } from "react";
 
 const AddRecordForm = () => {
   const [financial, setFinancial] = useState({
-    category: "",
-    date: "",
-    description: "",
-    amount: "",
-    paymentMethod: "",
+    category: '',
+    date: '',
+    description: '',
+    amount: '',
+    paymentMethod: ''
   });
   const { addRecord } = useFinancialRecord();
   const { user } = useUser();
@@ -23,19 +24,13 @@ const AddRecordForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     // Check if all fields are filled
-    if (
-      !financial.category ||
-      !financial.date ||
-      !financial.description ||
-      !financial.amount ||
-      !financial.paymentMethod
-    ) {
+    if (!financial.category || !financial.date || !financial.description || !financial.amount || !financial.paymentMethod) {
       Swal.fire({
-        title: "Error",
-        text: "Please fill out all fields",
-        icon: "error",
+        title: 'Error',
+        text: 'Please fill out all fields',
+        icon: 'error'
       });
       return; // Return early if validation fails
     }
@@ -45,38 +40,32 @@ const AddRecordForm = () => {
     try {
       // Call addRecord from context to update state
       await addRecord(record);
-
+      
       Swal.fire({
-        title: "Success",
-        text: "Record added successfully",
-        icon: "success",
+        title: 'Success',
+        text: 'Record added successfully',
+        icon: 'success'
       }).then(() => {
-        navigate("/"); // Navigate after successful addition
+        navigate('/'); // Navigate after successful addition
       });
+      
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
       Swal.fire({
-        title: "Error",
-        text: "Failed to add record",
-        icon: "error",
+        title: 'Error',
+        text: 'Failed to add record',
+        icon: 'error'
       });
     }
   };
 
   return (
     <div className="bg-[#F5EDED] p-6 rounded-lg shadow-lg max-w-md mx-auto">
-      <h2 className="text-2xl font-bold text-[#6482AD] mb-6">
-        Add Financial Record
-      </h2>
+      <h2 className="text-2xl font-bold text-[#6482AD] mb-6">Add Financial Record</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label
-            htmlFor="category"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Category
-          </label>
+          <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">Category</label>
           <select
             id="category"
             name="category"
@@ -98,12 +87,7 @@ const AddRecordForm = () => {
         </div>
 
         <div className="mb-4">
-          <label
-            htmlFor="date"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Date
-          </label>
+          <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">Date</label>
           <input
             type="date"
             id="date"
@@ -116,12 +100,7 @@ const AddRecordForm = () => {
         </div>
 
         <div className="mb-4">
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Description
-          </label>
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Description</label>
           <input
             type="text"
             id="description"
@@ -135,12 +114,7 @@ const AddRecordForm = () => {
         </div>
 
         <div className="mb-4">
-          <label
-            htmlFor="amount"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Amount
-          </label>
+          <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">Amount</label>
           <input
             type="number"
             id="amount"
@@ -154,12 +128,7 @@ const AddRecordForm = () => {
         </div>
 
         <div className="mb-4">
-          <label
-            htmlFor="paymentMethod"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Payment Method
-          </label>
+          <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
           <select
             id="paymentMethod"
             name="paymentMethod"

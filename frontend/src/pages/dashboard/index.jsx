@@ -9,22 +9,17 @@ const Dashboard = () => {
   const { records } = useFinancialRecord() || { records: [] }; // ให้ค่าเริ่มต้นเป็น array ว่างๆ
 
   // คำนวณยอดรวมรายเดือน
-  const totalMonthly = records
-    .reduce((total, record) => {
-      const recordDate = new Date(record.date);
-      const currentMonth = new Date().getMonth();
-      const currentYear = new Date().getFullYear();
+  const totalMonthly = records.reduce((total, record) => {
+    const recordDate = new Date(record.date);
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
 
-      if (
-        recordDate.getMonth() === currentMonth &&
-        recordDate.getFullYear() === currentYear
-      ) {
-        return total + parseFloat(record.amount);
-      }
+    if (recordDate.getMonth() === currentMonth && recordDate.getFullYear() === currentYear) {
+      return total + parseFloat(record.amount);
+    }
 
-      return total;
-    }, 0)
-    .toFixed(2);
+    return total;
+  }, 0).toFixed(2);
 
   return (
     <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">

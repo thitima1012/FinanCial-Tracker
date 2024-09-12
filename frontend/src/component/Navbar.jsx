@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   SignUpButton,
-  SignInButton, // Import SignInButton
+  SignInButton,    // Import SignInButton
   SignedIn,
   SignedOut,
   UserButton,
@@ -30,15 +30,8 @@ const NavBar = () => {
         <div className="dropdown dropdown-end">
           <header className="flex items-center gap-2">
             <SignedOut>
-              <SignInButton
-                mode="modal"
-                className="btn bg-[#7FA1C3] text-white"
-              />{" "}
-              {/* Add SignInButton */}
-              <SignUpButton
-                mode="modal"
-                className="btn bg-[#7FA1C3] text-white"
-              />
+              <SignInButton mode="modal" className="btn bg-[#7FA1C3] text-white" /> {/* Add SignInButton */}
+              <SignUpButton mode="modal" className="btn bg-[#7FA1C3] text-white" />
             </SignedOut>
             <SignedIn>
               <UserButton />
