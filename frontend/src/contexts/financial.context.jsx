@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import financialservice from "../service/financial.service";
+import financialservice from "../services/financial.service";
 import { useUser } from "@clerk/clerk-react";
 
 // เปลี่ยนชื่อ Context ให้ถูกต้อง
