@@ -45,9 +45,21 @@ exports.findAllByUserId = async (req, res) => {
 }
 
 //Find a single financial with an id
-exports.findOne = anync (req, res) => {
-    
-}
+exports.findOne = async (req, res) => {
+  const userId = req.params.userId;
+
+  await Financial.findAll({ where: { userId: userId } })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message:
+          error.message ||
+          "Some error occuser while retrieving the financial reccord",
+      });
+    });
+};
 
 //Update a financial record by id
 exports.update = async (req, res) =>{
