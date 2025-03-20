@@ -1,9 +1,8 @@
 const {DataTypes} = require("sequelize");
 const sequelize = require("./db");
-const { type } = require("os");
-const { describe } = require("node:test");
 
-const Financail = sequelize.define("financial", {
+
+const Financial = sequelize.define("financial", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -35,10 +34,10 @@ const Financail = sequelize.define("financial", {
   },
 });
 
-Financail.sync({force:true}).then(()=>{
+Financial.sync({force:true}).then(()=>{
     console.log("Tabal created or already exists");
 }).catch((error)=>{
     console.log("Error creating Financial Table", error);
 });
 
-module.exports = Financail;
+module.exports = Financial;
